@@ -3,66 +3,79 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuocak <yuocak@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: yuocak <yuocak@student.42kocaeli.com.tr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/20 15:28:14 by yuocak            #+#    #+#             */
-/*   Updated: 2025/02/25 15:43:14 by yuocak           ###   ########.fr       */
+/*   Created: 2025/03/10 23:23:54 by yuocak            #+#    #+#             */
+/*   Updated: 2025/03/12 17:03:34 by yuocak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "push_swap.h"
-#include "Libft/libft.h"
+#include <unistd.h>
 
-int process_arg(char *av)
+int ft_control_args(char *av)
 {
-    int     arg_count;
-    char    **args;
-    int     *tmp_args;
-    int     i;
+    int i;
 
     i = 0;
-    if (!(ft_is_number(av)))
+    if ((av[0] > '9' || av[0] < '0') && (av[0] != '+' && av[0] != '-'))
         return (0);
-    
-    arg_count = ft_counter(av);
-    args = ft_split(av, ' ');
-    if (!args)
-        return (0);
-
-    tmp_args = malloc(sizeof(int) * arg_count);
-    if (!tmp_args)
-        return (0);
-
-    while (args[i])
+    while (av[i])
     {
-        tmp_args = ft_atoi(args[i]);
-        if (tmp_args > 2147483647 || tmp_args < -2147483648)
-        {
-            while (i-- >= 0)
-                free(args[i]);
-            free(args);
-            free(tmp_args);
+        if ((av[i] > '0' && av[i] < '9') && !(av[i + 1] == '-' || av[i + 1] == '+'))
+            i++;
+        else if ((av[i] == '-' || av[i] == '+') && !(av[i + 1] == '-' || av[i + 1] == '+') 
+            && (av[i + 1] > '0' && av[i + 1] < '9'))
+            i++;
+        else if (av[i] == ' ' && (av[i + 1] <= '9' && av[i + 1] >= '0'))
+            i++;
+        else if (av[i] == ' ' && (av[i + 1] == '+' || av[i + 1] == '-'))
+            i++;
+        else 
             return (0);
-        }
-        tmp_args[i] = (int)tmp_value;
-        i++;
     }
-
-    i = 0;
-    while (i < arg_count)
-    {
-        printf("%d ", tmp_args[i]);
-        i++;
-    }
-    printf("\n");
-
-    i = 0;
-    while (args[i])
-        free(args[i]);
-    free(args);
-    free(tmp_args);
-
     return (1);
 }
 
+void ft_control(char **av)
+{
+    int i;
+
+    i = 0;
+    while (av[i])
+    {
+        if (!ft_control_args(av[i]))
+        {
+            write(1, "Error!\n", 8);
+            exit(1);
+        }
+        i++;
+    }
+}
+
+int main(int ac, char **av)
+{
+    t_list  *stack_a;
+    t_list  *stack_b;
+    char    **tmp;
+
+    stack_a = NULL;
+    stack_b = NULL;
+    if ((ac == 2) && (av[1][0] == '\0'))
+        return (0);
+    else if (ac == 2)
+    {
+        ft_control(av);
+        tmp = ft_split(av[1], ' ');
+        stack_a = ft_create_list(tmp);
+        ft_sort(stack_a, stack_b);
+        free(tmp);
+    }
+    else
+    {
+        ft_control(av + 1);
+        stack_a = ft_create_list(av + 1);
+        ft_sort(stack_a, stack_b);
+    }
+    return (0);
+}
