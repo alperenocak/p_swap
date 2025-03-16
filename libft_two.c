@@ -6,13 +6,46 @@
 /*   By: yuocak <yuocak@student.42kocaeli.com.tr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:46:23 by yuocak            #+#    #+#             */
-/*   Updated: 2025/03/12 15:47:59 by yuocak           ###   ########.fr       */
+/*   Updated: 2025/03/16 16:04:25 by yuocak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+long    ft_atol(char *av)
+{
+    int     i;
+    long    res;
+    long    sign;
+
+    i = 0;
+    res = 0;
+    sign = 1;
+    if (av[i] == '-' || av[i] == '+')
+    {
+        if (av[i] == '-')
+            sign = -1;
+        i++;
+    }
+    while (av[i] >= '0' && av[i] <= '9')
+    {
+        res = res * 10 + (av[i] - 48);
+        i++;
+    }
+    return(res*sign);
+}
+
+
+size_t	ft_strlen(char *s)
+{
+	size_t	len;
+
+	len = 0;
+	while (s[len] != '\0')
+		len++;
+	return (len);
+}
+void	*ft_memcpy(void *dst, void *src, size_t n)
 {
 	size_t	i;
 
@@ -27,11 +60,11 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	return (dst);
 }
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+size_t	ft_strlcpy(char *dst, char *src, size_t dstsize)
 {
 	size_t	src_len;
 
-	src_len = strlen(src);
+	src_len = ft_strlen(src);
 	if (src_len + 1 < dstsize)
 		ft_memcpy(dst, src, src_len + 1);
 	else if (dstsize != 0)
