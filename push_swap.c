@@ -6,7 +6,7 @@
 /*   By: yuocak <yuocak@student.42kocaeli.com.tr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 23:23:54 by yuocak            #+#    #+#             */
-/*   Updated: 2025/03/16 16:41:49 by yuocak           ###   ########.fr       */
+/*   Updated: 2025/03/19 02:20:25 by yuocak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,13 @@ int main(int ac, char **av)
         ft_control(av + 1);
         av = ft_split(av[1], ' ');
         stack_a = ft_create_list(av, 1);
-        //ft_sort(stack_a, stack_b);
-        free(av);
+        ft_sort(stack_a, stack_b);
     }
     else if (ac > 2)
     {
         ft_control(av + 1);
         stack_a = ft_create_list(av + 1, 0);
-        //ft_sort(stack_a, stack_b);
+        ft_sort(stack_a, stack_b);
     }
     return (0);
 }

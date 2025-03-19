@@ -6,7 +6,7 @@
 /*   By: yuocak <yuocak@student.42kocaeli.com.tr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:43:30 by yuocak            #+#    #+#             */
-/*   Updated: 2025/03/16 17:40:17 by yuocak           ###   ########.fr       */
+/*   Updated: 2025/03/18 22:54:47 by yuocak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_list  *ft_create_list(char **tmp, int split_control)
     head = NULL;
     i = 0;
     if (list_size(tmp) == 1)
-        return (ft_free(NULL, tmp, split_control), exit(1), NULL);
+        return (ft_free(NULL, tmp, split_control, list_size(tmp)), exit(1), NULL);
     while (tmp[i])
     {
         node = ft_new_node(ft_atol(tmp[i]));
@@ -76,10 +76,10 @@ t_list  *ft_create_list(char **tmp, int split_control)
         add_to_list(&head, node);
         i++;
     }
-    node->next = head; 
+    node->next = head;
     if(!(ft_if_same(head)))
-        ft_free_and_error(head, tmp, split_control);
+        ft_free_and_error(head, tmp, split_control, list_size(tmp));
     if(!(is_sorted(head)))
-        ft_free(head, tmp, split_control);
+        ft_free(head, tmp, split_control, list_size(tmp));
     return(head);
 }

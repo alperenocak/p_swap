@@ -6,13 +6,13 @@
 /*   By: yuocak <yuocak@student.42kocaeli.com.tr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 12:15:11 by yuocak            #+#    #+#             */
-/*   Updated: 2025/03/16 17:43:33 by yuocak           ###   ########.fr       */
+/*   Updated: 2025/03/18 22:44:13 by yuocak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void    ft_free(t_list *head, char **tmp, int split_control)
+void    ft_free(t_list *head, char **tmp, int split_control, int arg_size)
 {
 	int		i;
 	t_list	*tmp_node;
@@ -27,23 +27,27 @@ void    ft_free(t_list *head, char **tmp, int split_control)
 		}
 		free(tmp);
 	}
-    while (head)
-    {
-        tmp_node = head;
-        head = head->next;
-        free(tmp_node);
-    }
+	i = 0;
+	if (head)
+	{
+		while (i++ < arg_size)
+		{
+			tmp_node = head;
+			head = head->next;
+			free(tmp_node);
+		}
+	}
 }
 
 void    ft_error()
 {
-    write(1, "Error!", 7);
+    write(1, "Error!", 6);
 	exit(1);
 }
 
-void ft_free_and_error(t_list *head, char **tmp, int split_control)
+void ft_free_and_error(t_list *head, char **tmp, int split_control, int arg_size)
 {
-	ft_free(head, tmp, split_control);
+	ft_free(head, tmp, split_control, arg_size);
 	ft_error();
 }
 
