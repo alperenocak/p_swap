@@ -1,34 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithms.c                                       :+:      :+:    :+:   */
+/*   alghoritms_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yuocak <yuocak@student.42kocaeli.com.tr    +#+  +:+       +#+        */
+/*   By: yuocak <yuocak@student.42kocaeli.com.tr>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 01:04:23 by yuocak            #+#    #+#             */
-/*   Updated: 2025/03/19 17:03:48 by yuocak           ###   ########.fr       */
+/*   Created: 2025/03/19 16:50:48 by yuocak            #+#    #+#             */
+/*   Updated: 2025/03/20 02:59:16 by yuocak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void    current_index(t_list *stack)
-{
-    int     i;
-    int     median;
-    t_list  *head;
-    
-    head = stack;
-    i = 0;
-    if (!stack)
-        return ;
-    median = ft_stack_size(stack) / 2;
-    while(stack->next == head)
-    {
-        stack -> index = i;
-        
-    }
-}
 
 int ft_stack_size(t_list *stack)
 {
@@ -56,11 +38,24 @@ void    ft_sort(t_list **stack_a, t_list **stack_b)
     if (!ft_is_sorted(stack_a))
     {
         if (size == 2)
-            sort_two_args(stack_a);//direferasn edilecek mi?
+            sa(stack_a);
         else if (size == 3)
             sort_three_args(stack_a);
         else if (size > 3)
             to_many_args(stack_a, stack_b);
     }
     free_stack(stack_a, stack_b);
+}
+
+void    initialize_stack_a(t_list *stack_a, t_list *stack_b)
+{
+    int i;
+    int j;
+    i = 0;
+    j = 0;
+    current_index(stack_a);
+    current_index(stack_b);
+    set_target_a(stack_a, stack_b, i);
+    cost_calculation(stack_a, stack_b);
+    find_cheapest(stack_a);
 }
